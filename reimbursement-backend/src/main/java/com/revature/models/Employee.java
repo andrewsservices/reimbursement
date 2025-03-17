@@ -39,7 +39,6 @@ public class Employee implements UserDetails{
     public Employee() {
     }
 
-
     public Employee(UUID employeeid, String firstname, String lastname, String username, String password, String title) {
         this.employeeid = employeeid;
         this.firstname = firstname;
@@ -48,8 +47,6 @@ public class Employee implements UserDetails{
         this.password = password;
         this.title = title;
     }
-
-
 
     public UUID getEmployeeid() {
         return employeeid;
@@ -70,7 +67,6 @@ public class Employee implements UserDetails{
         return lastname;
     }
 
-
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
@@ -79,17 +75,9 @@ public class Employee implements UserDetails{
         return username;
     }
 
-
-
-
-
     public void setUsername(String username) {
         this.username = username;
     }
-
-
-
-
 
     public String getPassword() {
         return password;
