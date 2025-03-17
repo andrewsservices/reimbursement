@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 
 
 interface LoggedInEmployee{
-    employeeId:string,
+    employeeid:string,
     username:string,
     title:string
 }

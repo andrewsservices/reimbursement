@@ -9,7 +9,6 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@mui/material/FormLabel'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
-import { ReimbursementProps } from "../../InterFaces/ReimbursementProps"
 
 
 export const ReimbursementTable:React.FC = () => {
@@ -27,7 +26,7 @@ export const ReimbursementTable:React.FC = () => {
     const approveReimbursement = async (id:string) => {
         try{
             const response = await axios.patch("http://localhost:8080/reimb/approve/" + id,{},{withCredentials:true});
-            console.log(response.data);
+            (response.data);
             alert("Reimbursement number: " + id + " was approved");
             getAllReimbursements();
         } catch {
@@ -38,7 +37,7 @@ export const ReimbursementTable:React.FC = () => {
     const denyReimbursement = async (id:string) => {
         try{
             const response = await axios.patch("http://localhost:8080/reimb/deny/" + id,{},{withCredentials:true});
-            console.log(response.data);
+            (response.data);
             alert("Reimbursement number: " + id + " was denied");
             getAllReimbursements();
         } catch {
@@ -60,7 +59,7 @@ export const ReimbursementTable:React.FC = () => {
     const toggleView = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value;
         setView(value);
-        console.log(value);
+        (value);
     };
 
     // const updateRequest = (reimbursement:Reimbursement) => {

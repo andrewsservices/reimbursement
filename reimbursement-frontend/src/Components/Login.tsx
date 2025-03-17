@@ -45,6 +45,7 @@ export const Login: React.FC<LoginProps> = ({ setCurrentEmployeeid }) => {
       //!NEW! Context API
       setLoggedInEmployee(response.data);
       setLoggedIn(true);
+      console.log()
     } catch {
       alert("login unsuccessful");
     }
@@ -55,6 +56,7 @@ export const Login: React.FC<LoginProps> = ({ setCurrentEmployeeid }) => {
       alert(
         `${loggedInEmployee.username} has logged in, welcome. You are a ${loggedInEmployee.title} employee`
       );
+      setCurrentEmployeeid(loggedInEmployee.employeeid);
 
       if (loggedInEmployee.title === "manager") {
         navigate("/reimb");

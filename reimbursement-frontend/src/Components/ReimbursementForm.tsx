@@ -27,7 +27,7 @@ export const ReimbursementForm:React.FC<Employeeid> = ({currentEmployeeid}) => {
             const response = await axios.post("http://localhost:8080/reimb",reimbursement,{withCredentials:true})
             alert("reimbursement submitted")
             navigate("/basic")
-            console.log(response)
+            (response)
         } catch{
             alert("could not post reimbursement")
         }

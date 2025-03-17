@@ -28,7 +28,7 @@ export const EmployeeTable:React.FC =() => {
         try{
             const response = await axios.get("http://localhost:8080/employees",{withCredentials:true})
             setEmployees(response.data);
-            console.log(response)
+            (response)
         } catch {
             alert("something went awry")
         }
@@ -39,7 +39,7 @@ export const EmployeeTable:React.FC =() => {
             const response = await axios.patch("http://localhost:8080/employees/promote/" + id,{},{withCredentials:true})
             alert("Employee number: " + id + " was promoted");
             getAllEmployees();
-            console.log(response)
+            (response)
         } catch {
             alert("promotion unsuccessful")
         }
@@ -50,7 +50,7 @@ export const EmployeeTable:React.FC =() => {
             const response = await axios.delete("http://localhost:8080/employees/" + id,{withCredentials:true})
             alert("Employee number: " + id + " was fired");
             getAllEmployees();
-            console.log(response)
+            (response)
         } catch {
             alert("fire unsuccessful")
         }
