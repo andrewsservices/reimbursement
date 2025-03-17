@@ -1,7 +1,10 @@
 package com.revature.models;
 
+import java.util.Collection;
 import java.util.UUID;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
@@ -14,7 +17,7 @@ import jakarta.persistence.Table;
 @Component
 @Entity
 @Table(name="employees")
-public class Employee {
+public class Employee implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -92,33 +95,17 @@ public class Employee {
         return password;
     }
 
-
-
-
-
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-
 
     public String getTitle() {
         return title;
     }
 
-
-
-
-
     public void setTitle(String title) {
         this.title = title;
     }
-
-
-
-
 
     @Override
     public String toString() {
@@ -126,9 +113,11 @@ public class Employee {
                 + title + "]";
     }
 
-
-
-
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
 
 
 }
