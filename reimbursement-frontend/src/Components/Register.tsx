@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { store } from '../GlobalData/store'
 import { LoginProps } from '../InterFaces/LoginProps'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,8 @@ import { employeeAuth } from '../GlobalData/AuthContext'
 
 
 export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
+
+    const { loggedInEmployee, setLoggedInEmployee } = employeeAuth();
 
     const navigate = useNavigate()
 
@@ -18,6 +20,8 @@ export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
         username: "",
         password: ""
     })
+
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const storeValues = (event:React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
@@ -31,10 +35,13 @@ export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
 
 
              const response = await axios.post("http://localhost:8080/auth/register",registerCreds,{withCredentials:true})
-            store.loggedInEmployee = response.data;
-            const currentEmployee = store.loggedInEmployee;
-            setCurrentEmployeeid(currentEmployee.employeeid);
-            alert(store.loggedInEmployee.username + " has registered and is logged in , welcome.  You are a " + store.loggedInEmployee.title + " employee");
+            // store.loggedInEmployee = response.data;
+            // const currentEmployee = store.loggedInEmployee;
+            // setCurrentEmployeeid(currentEmployee.employeeid);
+
+            //!NEW! Context API
+            setLoggedInEmployee(response.data);
+            setLoggedIn(true);
 
 
             navigate("/basic")
@@ -42,6 +49,19 @@ export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
             alert("login unsuccessful")
         }
     }
+
+    useEffect(() => {
+        if (loggedIn && loggedInEmployee) {
+            loggedInEmployee.title = "basic";
+          alert(
+            `${loggedInEmployee.username} has logged in, welcome. You are a ${loggedInEmployee.title} employee`
+          );
+          setCurrentEmployeeid(loggedInEmployee.employeeid);
+
+          navigate("/basic");
+        }
+      }, [loggedIn, loggedInEmployee, navigate]);
+
 
     return(
 
