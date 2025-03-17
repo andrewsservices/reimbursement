@@ -5,6 +5,7 @@ import com.revature.models.DTOs.LoginDTO;
 import com.revature.models.DTOs.OutgoingEmployeeDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.revature.DAOs.EmployeeDAO;
@@ -16,12 +17,20 @@ public class AuthService {
 
     private final EmployeeDAO employeeDAO;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public AuthService(EmployeeDAO employeeDAO){
+    public AuthService(EmployeeDAO employeeDAO, PasswordEncoder passwordEncoder){
         this.employeeDAO = employeeDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public OutgoingEmployeeDTO registerEmployee(Employee employee){
+
+
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+
+
         Employee returnedEmployee = employeeDAO.save(employee);
         OutgoingEmployeeDTO registeredEmployee = new OutgoingEmployeeDTO(
             returnedEmployee.getEmployeeid(),

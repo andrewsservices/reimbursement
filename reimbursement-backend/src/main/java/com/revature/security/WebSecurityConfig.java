@@ -83,7 +83,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // Allow all OPTIONS requests (lets the CORS preflight request pass)
                                 .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/users/**")).hasAuthority("manager")
+                                .requestMatchers(new AntPathRequestMatcher("/employees/**")).hasAuthority("manager")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
