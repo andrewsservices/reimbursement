@@ -27,9 +27,10 @@ export const ReimbursementForm:React.FC<Employeeid> = ({currentEmployeeid}) => {
     }
     const submitReimbursement = async () => {
         try{
-            const response = await axios.post("http://3.135.216.7:8080/reimb",reimbursement,{headers: {
+            const response = await axios.post("http://18.116.21.61:8080/reimb",reimbursement,{headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }})
+                console.log(response)
             alert("reimbursement submitted")
             navigate("/basic");
 

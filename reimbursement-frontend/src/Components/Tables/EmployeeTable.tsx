@@ -32,7 +32,7 @@ export const EmployeeTable:React.FC =() => {
         console.log(loggedInEmployee?.jwt)
 
         try{
-            const response = await axios.get("http://3.135.216.7:8080/employees",{
+            const response = await axios.get("http://18.116.21.61:8080/employees",{
                 headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }
@@ -50,7 +50,7 @@ export const EmployeeTable:React.FC =() => {
 
     const promoteEmployee = async (id:number) => {
         try{
-            const response = await axios.patch("http://3.135.216.7:8080/employees/promote/" + id,{},{headers: {
+            const response = await axios.patch("http://18.116.21.61:8080/employees/promote/" + id,{},{headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }})
             alert("Employee number: " + id + " was promoted");
@@ -63,7 +63,7 @@ export const EmployeeTable:React.FC =() => {
 
     const fireEmployee = async (id:number) => {
         try{
-            const response = await axios.delete("http://3.135.216.7:8080/employees/" + id,{headers: {
+            const response = await axios.delete("http://18.116.21.61:8080/employees/" + id,{headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }})
             alert("Employee number: " + id + " was fired");

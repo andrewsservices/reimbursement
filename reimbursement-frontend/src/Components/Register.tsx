@@ -33,7 +33,7 @@ export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
         try{
 
 
-             const response = await axios.post("http://3.135.216.7:8080/auth/register",registerCreds,{withCredentials:true})
+             const response = await axios.post("http://18.116.21.61:8080/auth/register",registerCreds,{withCredentials:true})
             // store.loggedInEmployee = response.data;
             // const currentEmployee = store.loggedInEmployee;
             // setCurrentEmployeeid(currentEmployee.employeeid);
