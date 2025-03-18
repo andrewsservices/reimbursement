@@ -28,10 +28,13 @@ export const EmployeeTable:React.FC =() => {
     },[])
 
     const getAllEmployees = async() => {
+
+        console.log(loggedInEmployee?.jwt)
+
         try{
             const response = await axios.get("http://localhost:8080/employees",{
                 headers: {
-                    'Authorization': `Bearer ${loggedInEmployee?.token}`
+                    'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }
             })
 
@@ -47,7 +50,9 @@ export const EmployeeTable:React.FC =() => {
 
     const promoteEmployee = async (id:number) => {
         try{
-            const response = await axios.patch("http://localhost:8080/employees/promote/" + id,{},{withCredentials:true})
+            const response = await axios.patch("http://localhost:8080/employees/promote/" + id,{},{headers: {
+                    'Authorization': `Bearer ${loggedInEmployee?.jwt}`
+                }})
             alert("Employee number: " + id + " was promoted");
             getAllEmployees();
             (response)
@@ -58,7 +63,9 @@ export const EmployeeTable:React.FC =() => {
 
     const fireEmployee = async (id:number) => {
         try{
-            const response = await axios.delete("http://localhost:8080/employees/" + id,{withCredentials:true})
+            const response = await axios.delete("http://localhost:8080/employees/" + id,{headers: {
+                    'Authorization': `Bearer ${loggedInEmployee?.jwt}`
+                }})
             alert("Employee number: " + id + " was fired");
             getAllEmployees();
             (response)

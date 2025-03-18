@@ -5,9 +5,12 @@ import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Employeeid } from "../InterFaces/Employeeid";
 
+import {employeeAuth} from '../GlobalData/AuthContext';
+
 export const ReimbursementForm:React.FC<Employeeid> = ({currentEmployeeid}) => {
 
     const navigate = useNavigate()
+    const {loggedInEmployee} = employeeAuth();
 
     const[reimbursement, setReimbursement] = useState({
         description: "",
@@ -24,10 +27,12 @@ export const ReimbursementForm:React.FC<Employeeid> = ({currentEmployeeid}) => {
     }
     const submitReimbursement = async () => {
         try{
-            const response = await axios.post("http://localhost:8080/reimb",reimbursement,{withCredentials:true})
+            const response = await axios.post("http://localhost:8080/reimb",reimbursement,{headers: {
+                    'Authorization': `Bearer ${loggedInEmployee?.jwt}`
+                }})
             alert("reimbursement submitted")
             navigate("/basic");
-            
+
         } catch{
             alert("could not post reimbursement")
         }

@@ -5,7 +5,7 @@ interface LoggedInEmployee{
     employeeid:string,
     username:string,
     title:string,
-    token:string
+    jwt:string
 }
 
 interface AuthContextType{
