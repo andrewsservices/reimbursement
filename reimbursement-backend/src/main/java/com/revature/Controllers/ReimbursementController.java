@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -36,8 +37,12 @@ public class ReimbursementController {
 
     @PostMapping
     public ResponseEntity<Reimbursement> postReimbursement(@RequestBody IncomingReimbursementDTO reimbursementDTO){
-
         //send the DTO to the service and return the VideoGame object that comes back
+
+        if(reimbursementDTO.getStatus() == null || reimbursementDTO.getStatus().isBlank()){
+            reimbursementDTO.setStatus("pending");
+        }
+
         return ResponseEntity.accepted().body(reimbursementService.postReimbursement(reimbursementDTO));
 
     }
@@ -47,6 +52,12 @@ public class ReimbursementController {
     public ResponseEntity <List<OutgoingReimbursementDTO>> getAllReimbursements(){
         return ResponseEntity.ok(reimbursementService.getAllReimbursements());
     }
+
+    // @GetMapping
+    // @PreAuthorize("hasAuthority('manager') or hasAuthority('admin')")
+    // public ResponseEntity<List<OutgoingReimbursementDTO>> getAllReimbursements() {
+    //     return ResponseEntity.ok(reimbursementService.getAllReimbursements());
+    // }
 
     @GetMapping("/employee/{id}")
     @CrossOrigin(value="http://localhost:5174",allowCredentials = "true")

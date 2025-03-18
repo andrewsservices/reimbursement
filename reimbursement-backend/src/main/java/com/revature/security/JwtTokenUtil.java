@@ -46,11 +46,11 @@ public class JwtTokenUtil {
 
     //This method creates our JWT! The Employee's unique identifier token
     //This gets called after successful login
-    public String generateAccessToken(Employee u) {
+    public String generateAccessToken(Employee e) {
         return Jwts.builder()
-                .setSubject(String.format("%s", u.getEmployeeid())) //subject is typically ID
-                .claim("username", u.getUsername()) //any other data can be set as a claim
-                .claim("title", u.getTitle())
+                .setSubject(String.format("%s", e.getEmployeeid())) //subject is typically ID
+                .claim("username", e.getUsername()) //any other data can be set as a claim
+                .claim("title", e.getTitle())
                 .setIssuer("Project2")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))

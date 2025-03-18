@@ -30,7 +30,7 @@ public class ReimbursementService {
     }
 
 
-    public Reimbursement postReimbursement(IncomingReimbursementDTO incomingReimbursementDTO){
+    public Reimbursement postReimbursement(IncomingReimbursementDTO incomingReimbursementDTO) {
 
         Reimbursement newReimbursement = new Reimbursement(
             null,
@@ -39,6 +39,7 @@ public class ReimbursementService {
             incomingReimbursementDTO.getStatus(),
             null
         );
+
 
         Optional<Employee> employee = employeeDAO.findById(incomingReimbursementDTO.getEmployeeid());
 
@@ -49,6 +50,8 @@ public class ReimbursementService {
             newReimbursement.setEmployee(employee.get());
             //get() is how we extract data from an optional
         }
+
+        System.out.println("new reimbursement: " + newReimbursement);
 
         return reimbursementDAO.save(newReimbursement);
 

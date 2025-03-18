@@ -44,8 +44,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         //Run the filter without doing anything else. (The request will fail later if JWT is needed)
         if (!hasAuthorizationBearer(request)) {
             filterChain.doFilter(request, response);
-            System.out.println("hello you're missing a bearer token! " +
-                    "this is only a problem if the request you sent needs one (login/register don't need one)");
+            System.out.println("Missing Bearer token");
             return;
         }
 
@@ -57,6 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         //Run the filter without doing anything else. (The request will fail later if JWT is needed)
         if (!jwtUtil.validateAccessToken(token)) {
             filterChain.doFilter(request, response);
+            System.out.println("Invalid JWT token");
             return;
         }
 

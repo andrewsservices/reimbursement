@@ -28,22 +28,15 @@ import com.revature.models.DTOs.LoginDTO;
 allowCredentials = "true")
 public class AuthController {
 
-    private final Employee employee;
-
-    private final SecurityFilterChain configure;
-
-
     private final AuthService authService;
     private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authManager;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthController(AuthService authService, JwtTokenUtil jwtTokenUtil, AuthenticationManager authManager, SecurityFilterChain configure, Employee employee){
+    public AuthController(AuthService authService, JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager) {
         this.authService = authService;
         this.jwtTokenUtil = jwtTokenUtil;
-        this.authManager = authManager;
-        this.configure = configure;
-        this.employee = employee;
+        this.authenticationManager = authenticationManager;
     }
 
     // @PostMapping("/register")
@@ -58,6 +51,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<OutgoingEmployeeDTO> registerEmployee(@RequestBody Employee employee) {
     try {
+
+         // Set the role (title) if not provided
+         if (employee.getTitle() == null || employee.getTitle().isBlank()) {
+            employee.setTitle("basic"); // Default role
+        }
         // Save the new employee to the database
         Employee registeredEmployee = authService.registerEmployee(employee);
 
@@ -84,7 +82,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<OutgoingEmployeeDTO> login(@RequestBody LoginDTO loginDTO){
         try{
-            Authentication auth = authManager.authenticate(
+            Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
             );
             Employee loggedInEmployee = (Employee) auth.getPrincipal();

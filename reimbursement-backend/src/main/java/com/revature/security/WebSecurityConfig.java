@@ -83,8 +83,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // Allow all OPTIONS requests (lets the CORS preflight request pass)
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/reimb").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/reimb/employee/**").permitAll() // Allow GET requests to /reimb/employee/{id} without authentication
                                 .requestMatchers(new AntPathRequestMatcher("/employees/**")).hasAuthority("manager")
+                                .requestMatchers(new AntPathRequestMatcher("/reimb/**")).authenticated() // Allow access to /reimb for authenticated users
                                 .anyRequest().authenticated()
+
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
