@@ -10,7 +10,7 @@ public class OutgoingEmployeeDTO {
    private String lastname;
     private String username;
     private String title;
-
+    private String jwt;
 
 
     public OutgoingEmployeeDTO() {
@@ -24,6 +24,15 @@ public class OutgoingEmployeeDTO {
         this.lastname = lastname;
         this.username = username;
         this.title = title;
+    }
+
+    public OutgoingEmployeeDTO(UUID employeeid, String firstname, String lastname, String username, String title, String jwt) {
+        this.employeeid = employeeid;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.title = title;
+        this.jwt = jwt;
     }
 
     public OutgoingEmployeeDTO(Employee employee){
@@ -95,5 +104,17 @@ public class OutgoingEmployeeDTO {
     }
 
 
+
+    public String getJwt() {
+        return jwt;
+    }
+
+
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    
 
 }

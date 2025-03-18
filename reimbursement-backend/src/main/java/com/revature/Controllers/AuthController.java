@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Employee;
 import com.revature.models.DTOs.OutgoingEmployeeDTO;
+import com.revature.security.JwtTokenUtil;
 import com.revature.services.AuthService;
 import com.revature.models.DTOs.LoginDTO;
 
@@ -22,11 +26,16 @@ import com.revature.models.DTOs.LoginDTO;
 allowCredentials = "true")
 public class AuthController {
 
+
     private final AuthService authService;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final AuthenticationManager authManager;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtTokenUtil jwtTokenUtil, AuthenticationManager authManager){
         this.authService = authService;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.authManager = authManager;
     }
 
     @PostMapping("/register")
@@ -39,13 +48,47 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<OutgoingEmployeeDTO> login(@RequestBody LoginDTO loginDTO,HttpSession session){
+
+    public ResponseEntity<OutgoingEmployeeDTO> login(@RequestBody LoginDTO loginDTO){
+
+
+        try{
+            Authentication auth = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
+            );
+            Employee loggedInEmployee = (Employee) auth.getPrincipal();
+            String jwt = jwtTokenUtil.generateAccessToken(loggedInEmployee);
+
+            return ResponseEntity.ok().body(
+                new OutgoingEmployeeDTO(
+                    loggedInEmployee.getEmployeeid(),
+                    loggedInEmployee.getFirstname(),
+                    loggedInEmployee.getLastname(),
+                    loggedInEmployee.getUsername(),
+                    loggedInEmployee.getTitle(),
+                    jwt
+                )
+            );
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        /*
+        *
         OutgoingEmployeeDTO loggedInEmployee = authService.login(loginDTO);
         session.setAttribute("employeeid", loggedInEmployee.getemployeeid());
         session.setAttribute("username", loggedInEmployee.getUsername());
         session.setAttribute("title", loggedInEmployee.getTitle());
         System.out.println("Employee " + session.getAttribute("username") + " has logged in");
         return ResponseEntity.ok(loggedInEmployee);
+        *
+        */
+
+
+
+
     }
 
 }
