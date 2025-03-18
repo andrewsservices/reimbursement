@@ -37,7 +37,7 @@ export const Login: React.FC<LoginProps> = ({ setCurrentEmployeeid }) => {
   const login = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/auth/login",
+        "http://3.135.216.7:8080/auth/login",
         loginCreds,
         { withCredentials: true }
       );

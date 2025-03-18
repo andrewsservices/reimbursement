@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@mui/material/FormLabel'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
-import {employeeAuth} from '../../GlobalData/AuthContext';
+import { employeeAuth } from '../../GlobalData/AuthContext'
 
 
 export const ReimbursementTable:React.FC = () => {
@@ -29,7 +29,7 @@ export const ReimbursementTable:React.FC = () => {
 
     const approveReimbursement = async (id:string) => {
         try{
-            const response = await axios.patch("http://localhost:8080/reimb/approve/" + id,{},{headers: {
+            const response = await axios.patch("http://3.135.216.7:8080/reimb/approve/" + id,{},{headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }});
             (response.data);
@@ -42,7 +42,7 @@ export const ReimbursementTable:React.FC = () => {
 
     const denyReimbursement = async (id:string) => {
         try{
-            const response = await axios.patch("http://localhost:8080/reimb/deny/" + id,{},{headers: {
+            const response = await axios.patch("http://3.135.216.7:8080/reimb/deny/" + id,{},{headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }});
             (response.data);
@@ -56,7 +56,7 @@ export const ReimbursementTable:React.FC = () => {
 
     const getAllReimbursements = async() => {
         try{
-            const response = await axios.get("http://localhost:8080/reimb",{
+            const response = await axios.get("http://3.135.216.7:8080/reimb",{
                 headers: {
                     'Authorization': `Bearer ${loggedInEmployee?.jwt}`
                 }

@@ -1,10 +1,9 @@
 import { Button, TextField } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { store } from '../GlobalData/store'
-import { LoginProps } from '../InterFaces/LoginProps'
 import { useNavigate } from 'react-router-dom'
 import { employeeAuth } from '../GlobalData/AuthContext'
+import { LoginProps } from '../InterFaces/LoginProps'
 
 
 export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
@@ -34,7 +33,7 @@ export const Register:React.FC<LoginProps> = ({setCurrentEmployeeid}) => {
         try{
 
 
-             const response = await axios.post("http://localhost:8080/auth/register",registerCreds,{withCredentials:true})
+             const response = await axios.post("http://3.135.216.7:8080/auth/register",registerCreds,{withCredentials:true})
             // store.loggedInEmployee = response.data;
             // const currentEmployee = store.loggedInEmployee;
             // setCurrentEmployeeid(currentEmployee.employeeid);
