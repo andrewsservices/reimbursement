@@ -16,8 +16,9 @@ import com.revature.models.DTOs.OutgoingEmployeeDTO;
 public class AuthService {
 
     private final EmployeeDAO employeeDAO;
-
     private final PasswordEncoder passwordEncoder;
+
+
 
     @Autowired
     public AuthService(EmployeeDAO employeeDAO, PasswordEncoder passwordEncoder){
@@ -25,24 +26,26 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public OutgoingEmployeeDTO registerEmployee(Employee employee){
-
-
-        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-
-
-        Employee returnedEmployee = employeeDAO.save(employee);
-        OutgoingEmployeeDTO registeredEmployee = new OutgoingEmployeeDTO(
-            returnedEmployee.getEmployeeid(),
-            returnedEmployee.getFirstname(),
-            returnedEmployee.getLastname(),
-            returnedEmployee.getUsername(),
-            returnedEmployee.getTitle()
-        );
-
-        return registeredEmployee;
-
+    public Employee registerEmployee(Employee employee) {
+        // Save the new employee to the database
+        return employeeDAO.save(employee);
     }
+
+
+    // public OutgoingEmployeeDTO registerEmployee(Employee employee){
+    //     employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+    //     Employee returnedEmployee = employeeDAO.save(employee);
+    //     OutgoingEmployeeDTO registeredEmployee = new OutgoingEmployeeDTO(
+    //         returnedEmployee.getEmployeeid(),
+    //         returnedEmployee.getFirstname(),
+    //         returnedEmployee.getLastname(),
+    //         returnedEmployee.getUsername(),
+    //         returnedEmployee.getTitle()
+    //     );
+
+    //     return registeredEmployee;
+
+    // }
 
     public OutgoingEmployeeDTO login(LoginDTO loginDTO){
        if(loginDTO.getUsername() == null || loginDTO.getUsername().isBlank()){
