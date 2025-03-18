@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,7 +24,7 @@ import com.revature.services.ReimbursementService;
 @RestController
 @RequestMapping("/reimb")
 @CrossOrigin(value={"http://localhost:5174",
-"http://myersbucket.s3-website.us-east-2.amazonaws.com/"},
+"http://myersbucket2025.s3-website.us-east-2.amazonaws.com/"},
 allowCredentials = "true")
 public class ReimbursementController {
     private final ReimbursementService reimbursementService;

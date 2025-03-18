@@ -4,20 +4,19 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.revature.aspects.AdminOnly;
-
-import com.revature.models.Employee;
-import com.revature.models.DTOs.OutgoingEmployeeDTO;
-import com.revature.services.EmployeeService;
-import com.revature.services.ReimbursementService;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.revature.aspects.AdminOnly;
+import com.revature.models.Employee;
+import com.revature.models.DTOs.OutgoingEmployeeDTO;
+import com.revature.services.EmployeeService;
+import com.revature.services.ReimbursementService;
 
 
 
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/employees")
 
 @CrossOrigin(value={"http://localhost:5174",
-"http://myersbucket.s3-website.us-east-2.amazonaws.com/"},
+"http://myersbucket2025.s3-website.us-east-2.amazonaws.com/"},
 allowCredentials = "true")
 public class EmployeeController {
     private final EmployeeService employeeService;

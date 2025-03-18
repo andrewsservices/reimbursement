@@ -1,30 +1,27 @@
 package com.revature.Controllers;
 
-import jakarta.servlet.http.HttpSession;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Employee;
+import com.revature.models.DTOs.LoginDTO;
 import com.revature.models.DTOs.OutgoingEmployeeDTO;
 import com.revature.security.JwtTokenUtil;
 import com.revature.services.AuthService;
-import com.revature.models.DTOs.LoginDTO;
 
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(value={"http://localhost:5174",
-"http://myersbucket.s3-website.us-east-2.amazonaws.com/"},
+"http://myersbucket2025.s3-website.us-east-2.amazonaws.com/"},
 allowCredentials = "true")
 public class AuthController {
 
