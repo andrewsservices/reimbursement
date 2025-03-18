@@ -58,7 +58,7 @@ export const Login: React.FC<LoginProps> = ({ setCurrentEmployeeid }) => {
       );
       setCurrentEmployeeid(loggedInEmployee.employeeid);
 
-      if (loggedInEmployee.title === "manager") {
+      if (loggedInEmployee?.title === "manager") {
         navigate("/reimb");
       } else {
         navigate("/basic");

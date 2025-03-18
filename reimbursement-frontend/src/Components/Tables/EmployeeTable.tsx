@@ -12,11 +12,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useNavigate } from "react-router-dom";
+import {employeeAuth} from '../../GlobalData/AuthContext';
 
 
 
 export const EmployeeTable:React.FC =() => {
     const [employees, setEmployees] = useState<Employee[]>([])
+
+    const {loggedInEmployee} = employeeAuth();
 
     const navigate = useNavigate();
 
@@ -26,7 +29,15 @@ export const EmployeeTable:React.FC =() => {
 
     const getAllEmployees = async() => {
         try{
-            const response = await axios.get("http://localhost:8080/employees",{withCredentials:true})
+            const response = await axios.get("http://localhost:8080/employees",{
+                headers: {
+                    'Authorization': `Bearer ${loggedInEmployee?.token}`
+                }
+            })
+
+
+
+
             setEmployees(response.data);
             (response)
         } catch {

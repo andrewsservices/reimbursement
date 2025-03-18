@@ -4,7 +4,8 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 interface LoggedInEmployee{
     employeeid:string,
     username:string,
-    title:string
+    title:string,
+    token:string
 }
 
 interface AuthContextType{
